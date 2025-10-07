@@ -1,12 +1,17 @@
 import mysql from 'mysql2/promise';
 import { get } from 'https';
+import dotenv from 'dotenv';
+
+dotenv.config({
+  path: '../../.env',
+});
 
 const dbConfig = {
-  host: 'localhost',
-  port: 3306,
-  user: 'root',
-  password: 'root',
-  database: 'brasileirao_dump',
+  host: process.env.DATABASE_HOST,
+  port: process.env.DATABASE_PORT,
+  user: process.env.DATABASE_USERNAME,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
 };
 
 function formatDate(date) {
@@ -21,11 +26,11 @@ function addDays(date, days) {
 
 function fetchMatchesForRange(dateFrom, dateTo) {
   return new Promise((resolve, reject) => {
-    const url = `https://api.football-data.org/v4/matches/?competitions=2013&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+    const url = `${process.env.FOOTBALL_API_URL}/matches/?competitions=2013&dateFrom=${dateFrom}&dateTo=${dateTo}`;
 
     const options = {
       headers: {
-        'X-Auth-Token': process.env.FOOTBALL_API_TOKEN || 'e576cb54deaf401785825fa8cc9fd98b'
+        'X-Auth-Token': process.env.FOOTBALL_API_TOKEN
       }
     };
 
