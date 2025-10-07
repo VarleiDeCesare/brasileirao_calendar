@@ -1,13 +1,14 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { MatchesService } from './matches.service';
+import { FindAllFiltersDto } from './dto/find-all-filters.dto';
 
 @Controller('matches')
 export class MatchesController {
   constructor(private readonly matchesService: MatchesService) {}
 
   @Get()
-  findAll() {
-    return this.matchesService.findAll();
+  async findAll(@Query() filters: FindAllFiltersDto) {
+    return this.matchesService.findAll(filters);
   }
 
   @Get(':id')
