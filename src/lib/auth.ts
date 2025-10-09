@@ -21,6 +21,9 @@ export const auth = betterAuth({
     google: {
       clientId: configuration().google.clientId,
       clientSecret: configuration().google.clientSecret,
+      enabled: true,
+      scopes: ['email', 'profile'],
+      profile: true,
     },
   },
 });

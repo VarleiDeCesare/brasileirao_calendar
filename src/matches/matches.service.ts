@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { Match } from './entities/match.entity';
 import { FindAllFiltersDto } from './dto/find-all-filters.dto';
+import { isNumber } from 'class-validator';
 
 @Injectable()
 export class MatchesService {
@@ -41,15 +42,25 @@ export class MatchesService {
     };
   }
 
-  async findOne(id: number): Promise<Match> {
+  async findOne(id: string): Promise<Match> {
+    const errorFunction = () => {
+      throw new HttpException(
+        'Partida não encontrada.',
+        HttpStatus.BAD_REQUEST,
+      );
+    };
+
+    if (!isNumber(id)) {
+      return errorFunction();
+    }
     const match = await this.repo.findOne({
       where: {
-        id: id,
+        id: +id,
       },
     });
 
     if (!match) {
-      throw new HttpException('Partida não encontrada.', HttpStatus.NOT_FOUND);
+      return errorFunction();
     }
 
     return match;

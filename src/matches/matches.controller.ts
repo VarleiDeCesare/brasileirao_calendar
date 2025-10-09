@@ -15,6 +15,6 @@ export class MatchesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.matchesService.findOne(+id);
+    return this.matchesService.findOne(id);
   }
 }
