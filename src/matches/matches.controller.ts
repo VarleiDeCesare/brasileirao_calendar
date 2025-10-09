@@ -1,7 +1,9 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { MatchesService } from './matches.service';
 import { FindAllFiltersDto } from './dto/find-all-filters.dto';
+import { AllowAnonymous } from '@thallesp/nestjs-better-auth';
 
+@AllowAnonymous()
 @Controller('matches')
 export class MatchesController {
   constructor(private readonly matchesService: MatchesService) {}
