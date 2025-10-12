@@ -6,7 +6,7 @@
         "name": "next"
       }
     ],
-    "declaration": false,
+    "declaration": true,
   },
   "include": [
     "**/*.ts",

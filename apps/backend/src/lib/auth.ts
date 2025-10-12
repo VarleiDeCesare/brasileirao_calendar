@@ -24,6 +24,8 @@ export const createAuth = (configService: ConfigService) => {
         enabled: true,
         scopes: ['email', 'profile'],
         profile: true,
+        accessType: 'offline',
+        prompt: 'select_account consent',
       },
     },
     trustedOrigins: ['*'],

@@ -3,14 +3,13 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Protected routes
-  const protectedRoutes = ['/dashboard', '/profile'];
+  const protectedRoutes = ['/pages/profile', '/pages/example'];
 
   if (protectedRoutes.some(route => pathname.startsWith(route))) {
     const sessionCookie = request.cookies.get('better-auth.session_token');
 
     if (!sessionCookie) {
-      return NextResponse.redirect(new URL('/', request.url));
+      return NextResponse.next();
     }
 
     //FIXME: verify the session with your backend here
@@ -21,5 +20,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/profile/:path*']
+  matcher: ['/pages/profile/:path*', '/pages/example/:path*']
 };
