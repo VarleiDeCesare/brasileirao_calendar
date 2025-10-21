@@ -7,6 +7,12 @@
       }
     ],
     "declaration": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
   },
   "include": [
     "**/*.ts",

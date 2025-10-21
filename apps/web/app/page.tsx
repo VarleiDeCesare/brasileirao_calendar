@@ -3,20 +3,49 @@
 import { useAuth } from "../components/auth-provider";
 import { useAuthPopup } from "../components/auth-popup-provider";
 import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { authClient } from "@/lib/auth-client";
+import { useState } from "react";
 
 export default function Home() {
   const { session } = useAuth();
   const { showPopup } = useAuthPopup();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleGoogleLogin = async () => {
+    setIsLoading(true);
+    try {
+
+      await authClient.signIn.social({
+        provider: "google",
+      });
+    } catch (error: unknown) {
+      console.error("Google login failed:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="pt-6 h-10 flex justify-between items-center gap-2 w-full mx-auto max-w-7xl">
+        <Image src={'/next.svg'} alt={'home_logo'} width={180} height={10}/>
+
+        <Button variant="outline" size={"lg"} onClick={handleGoogleLogin} disabled={isLoading}>
+          <Image src={'/google_icon.svg'} alt={'google_logo'} width={27} height={27}/>
+          {isLoading ? "Entrando..." : ""}
+          Entrar
+        </Button>
+
+      </div>
       <div className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
-            Welcome to Brasileirão Calendar
-          </h1>
+        <div className="mt-10max-w-4xl mx-auto text-center">
+          <h2 className="text-5xl font-bold text-gray-900 mb-6">
+            Bem vindo ao calendário do futebol Brasileiro
+          </h2>
           <p className="text-xl text-gray-600 mb-12">
-            Your complete football calendar application with authentication and protected content.
+            Seu calendário completo de futebol Brasileiro com alertas de partidas e resultados
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
