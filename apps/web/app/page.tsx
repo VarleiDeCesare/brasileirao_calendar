@@ -19,8 +19,9 @@ export default function Home() {
 
       await authClient.signIn.social({
         provider: "google",
+        callbackURL: `${window.location.origin}/pages/profile`
       });
-    } catch (error: unknown) {
+      } catch (error: unknown) {
       console.error("Google login failed:", error);
     } finally {
       setIsLoading(false);
