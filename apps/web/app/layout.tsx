@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "../components/auth-provider";
-import { AuthPopupProvider } from "../components/auth-popup-provider";
 import { Roboto } from 'next/font/google'
 
 const roboto = Roboto({
@@ -23,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${roboto.className}`}>
         <AuthProvider>
-          <AuthPopupProvider>{children}</AuthPopupProvider>
+          {children}
         </AuthProvider>
       </body>
     </html>

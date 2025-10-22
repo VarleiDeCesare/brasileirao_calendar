@@ -4,10 +4,11 @@ import { authClientSession } from './lib/auth-client';
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const protectedRoutes = ['/pages/profile', '/pages/example'];
+  const protectedRoutes = ['/pages/profile'];
 
   if (protectedRoutes.some(route => pathname.startsWith(route))) {
 
+    // const { session } = useAuth(); FIXME: testar isso.
     const session = await authClientSession.getSession({
       fetchOptions: {
         headers: request.headers
@@ -23,5 +24,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/pages/profile/:path*', '/pages/example/:path*']
+  matcher: ['/pages/profile/:path*']
 };

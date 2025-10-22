@@ -27,7 +27,7 @@ function addDays(date, days) {
 function fetchMatchesForRange(dateFrom, dateTo) {
   //competitionId = 2013 is the Brasileirao
   return new Promise((resolve, reject) => {
-    const url = `${process.env.FOOTBALL_API_URL}/matches/?competitions=2013&dateFrom=${dateFrom}&dateTo=${dateTo}`;
+    const url = `${process.env.BASE_URL_FOOTBALL_API}/matches/?competitions=2013&dateFrom=${dateFrom}&dateTo=${dateTo}`;
 
     const options = {
       headers: {
